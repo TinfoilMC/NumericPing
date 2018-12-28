@@ -22,39 +22,16 @@
  * SOFTWARE.
  */
 
-package com.github.creeper123123321.viarift.platform;
+package com.github.creeper123123321.numericping;
 
-import us.myles.ViaVersion.api.Via;
-import us.myles.ViaVersion.api.command.ViaCommandSender;
+import org.dimdev.riftloader.listener.InitializationListener;
+import org.spongepowered.asm.launch.MixinBootstrap;
+import org.spongepowered.asm.mixin.Mixins;
 
-import java.util.UUID;
-
-public class VRCommandSender implements ViaCommandSender {
-    private UUID uuid;
-    private String name;
-
-    public VRCommandSender(UUID uuid, String name) {
-        this.uuid = uuid;
-        this.name = name;
-    }
-
+public class NumericPing implements InitializationListener {
     @Override
-    public boolean hasPermission(String s) {
-        return true;
-    }
-
-    @Override
-    public void sendMessage(String s) {
-        Via.getPlatform().sendMessage(uuid, s);
-    }
-
-    @Override
-    public UUID getUUID() {
-        return uuid;
-    }
-
-    @Override
-    public String getName() {
-        return name;
+    public void onInitialization() {
+        MixinBootstrap.init();
+        Mixins.addConfiguration("mixins.numericping.main.json");
     }
 }

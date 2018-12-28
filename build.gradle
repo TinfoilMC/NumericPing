@@ -22,9 +22,9 @@ apply plugin: 'net.minecraftforge.gradle.tweaker-client'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'java'
 
-group 'com.github.creeper123123321.viarift'
+group 'com.github.creeper123123321.numericping'
 version gitVersion()
-archivesBaseName = 'ViaRift'
+archivesBaseName = 'NumericPing'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -33,7 +33,6 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven { url 'https://libraries.minecraft.net/' }
-    maven { url 'https://repo.viaversion.com/' }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'https://www.dimdev.org/maven/' }
     maven { url 'https://jitpack.io' }
@@ -46,10 +45,6 @@ configurations {
 }
 
 dependencies {
-    shade ('us.myles:viaversion:2.0.0-SNAPSHOT') {
-        transitive = false
-        changing = true
-    }
     implementation 'com.github.Chocohead:Rift:jitpack-SNAPSHOT:dev'
 }
 
@@ -63,15 +58,9 @@ jar {
     }
 }
 
-reobf {
-    jar {
-        extraLines += "PK: us/myles com/github/creeper123123321/viarift/shaded/us/myles"
-    }
-}
-
 mixin {
     defaultObfuscationEnv notch
-    add sourceSets.main, 'mixins.viarift.refmap.json'
+    add sourceSets.main, 'mixins.numericping.refmap.json'
 }
 
 minecraft {
