@@ -39,23 +39,8 @@ repositories {
     maven { url 'http://repo.strezz.org/artifactory/list/Strezz-Central' }
 }
 
-configurations {
-    shade
-    compile.extendsFrom shade
-}
-
 dependencies {
     implementation 'com.github.Chocohead:Rift:jitpack-SNAPSHOT:dev'
-}
-
-jar {
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)){
-            //exclude 'META-INF', 'META-INF/**'
-            exclude 'us/myles/ViaVersion/SpongePlugin.class'
-            exclude 'javassist/**'
-        }
-    }
 }
 
 mixin {
