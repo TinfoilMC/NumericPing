@@ -51,7 +51,7 @@ public abstract class MixinGuiTabOverlay extends Gui {
         String pingString = toSubscriptNumbers(Integer.toString(ping));
 
         this.zLevel += 100.0F;
-        this.drawCenteredString(
+        this.drawString(
                 Minecraft.getInstance().fontRenderer,
                 pingString,
                 x1 + x2 - Minecraft.getInstance().fontRenderer.getStringWidth(pingString),
