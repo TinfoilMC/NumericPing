@@ -24,22 +24,23 @@
 
 package com.github.creeper123123321.numericping.mixin.client;
 
-import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.*;
-import net.minecraft.client.network.NetworkPlayerInfo;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.hud.ScoreboardHud;
+import net.minecraft.client.network.ScoreboardEntry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(GuiPlayerTabOverlay.class)
-public abstract class MixinGuiTabOverlay extends Gui {
+@Mixin(ScoreboardHud.class)
+public abstract class MixinScoreboardHud extends Drawable {
     /**
      * @author creeper123123321
      */
     @Overwrite
-    protected void drawPing(int x1, int x2, int y, NetworkPlayerInfo playerInfo) {
+    protected void method_1923(int x1, int x2, int y, ScoreboardEntry playerInfo) {
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        int ping = playerInfo.getResponseTime();
+        int ping = playerInfo.getLatency();
         int rgb;
         if (ping < 0) rgb = 0x0000FF; // Blue
         else if (ping < 150) rgb = 0x00FF00; // Green
@@ -50,15 +51,15 @@ public abstract class MixinGuiTabOverlay extends Gui {
 
         String pingString = toSubscriptNumbers(Integer.toString(ping));
 
-        this.zLevel += 100.0F;
+        this.zOffset += 100.0F;
         this.drawString(
-                Minecraft.getInstance().fontRenderer,
+                MinecraftClient.getInstance().fontRenderer,
                 pingString,
-                x1 + x2 - Minecraft.getInstance().fontRenderer.getStringWidth(pingString),
+                x1 + x2 - MinecraftClient.getInstance().fontRenderer.getStringWidth(pingString),
                 y,
                 rgb
         );
-        this.zLevel -= 100.0F;
+        this.zOffset -= 100.0F;
     }
 
     private String toSubscriptNumbers(String string) {

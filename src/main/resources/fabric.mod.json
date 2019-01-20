@@ -1,0 +1,10 @@
+{
+  "id": "numericping",
+  "name": "NumericPing",
+  "side": "client",
+  "version": "@version@",
+  "initializers": [],
+  "mixins": {
+    "client": "mixins.numericping.main.json"
+  }
+}
